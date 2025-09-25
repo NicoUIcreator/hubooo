@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="es" data-theme="auto">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Huboo | Playbook BDR – Sectores & Valor</title>
+<meta name="description" content="Dashboard de sectores eCommerce, dolores, beneficios de fulfillment, ejemplos reales, KPIs y objeciones. Calculadora y guion BDR." />
+<style>
+  :root{
+    --bg:#0b0c10; --card:#111216; --text:#e9edf1; --muted:#a8b3be; --stroke:#20222a;
+    --accent:#60a5fa; --brand:#6ee7b7;
+    --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+    --shadow: 0 8px 24px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.02) inset;
+    --shadow-soft: 0 6px 16px rgba(0,0,0,.18);
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg:#f6f7f9; --card:#ffffff; --text:#0b0c10; --muted:#5b6570; --stroke:#e8eaee;
+      --shadow: 0 8px 24px rgba(18,24,40,.08);
+      --shadow-soft: 0 6px 16px rgba(18,24,40,.06);
+    }
+  }
+  [data-theme="light"]{
+    --bg:#f6f7f9; --card:#ffffff; --text:#0b0c10; --muted:#5b6570; --stroke:#e8eaee;
+    --shadow: 0 8px 24px rgba(18,24,40,.08);
+    --shadow-soft: 0 6px 16px rgba(18,24,40,.06);
+  }
+  [data-theme="dark"]{
+    --bg:#0b0c10; --card:#111216; --text:#e9edf1; --muted:#a8b3be; --stroke:#20222a;
+    --shadow: 0 8px 24px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.02) inset;
+    --shadow-soft: 0 6px 16px rgba(0,0,0,.18);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px}
+
+  header{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .title h1{font-size:20px;margin:0}
+  .subtitle{font-size:13px;color:var(--muted);margin-top:2px}
+  .topbar{display:flex;align-items:center;gap:10px}
+
+  .hamburger{display:none;border:1px solid var(--stroke);background:var(--card);border-radius:12px;padding:8px;cursor:pointer}
+  .hamburger svg{width:20px;height:20px;display:block}
+  @media (max-width:860px){ .hamburger{display:inline-flex} }
+
+  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .controls.collapsible{display:flex}
+  @media (max-width:860px){
+    .controls{display:none}
+    .controls.open{display:flex;flex-direction:column;align-items:stretch;margin-top:10px}
+  }
+
+  .select,.input,.btn{
+    border:1px solid var(--stroke); background:var(--card); color:var(--text);
+    padding:10px 12px; border-radius:12px; font-size:14px; transition:.2s ease; outline:none;
+  }
+  .select:hover,.input:hover{border-color:#394150}
+  .btn{cursor:pointer;font-weight:600}
+  .btn.primary{background:linear-gradient(135deg,var(--accent),#22d3ee); color:#081018; border:none}
+  .btn.ghost{background:transparent}
+
+  .theme-btn{border:1px solid var(--stroke);background:var(--card);border-radius:12px;padding:8px 10px;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+  .theme-btn svg{width:18px;height:18px;display:block}
+  .theme-label{font-size:12px;color:var(--muted)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+  .card{
+    background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.02));
+    border:1px solid var(--stroke); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px;
+    box-shadow:var(--shadow-soft);
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+  .card:hover{ box-shadow:var(--shadow); transform: translateY(-2px); }
+  .card h3{margin:0 0 6px 0; font-size:15px}
+  .list{margin:0;color:var(--muted);font-size:14px}
+  .list li{margin:8px 0 0 0}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--stroke);border-radius:999px;font-size:12px;color:var(--muted)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+  .kpi{border:1px dashed var(--stroke);border-radius:14px;padding:12px;transition:.25s ease;box-shadow:var(--shadow-soft)}
+  .kpi:hover{box-shadow:var(--shadow)}
+  .kpi .v{font-weight:700;font-size:18px}
+  .muted{color:var(--muted)}
+  .hr{height:1px;background:var(--stroke);margin:18px 0;border-radius:1px}
+  .section{border:1px solid var(--stroke);border-radius:16px;padding:16px;margin-top:18px;background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(0,0,0,.02)); box-shadow:var(--shadow-soft)}
+  .section h2{font-size:16px;margin:0 0 10px 0}
+  .calc-grid{display:grid;grid-template-columns:1fr;gap:10px}
+  @media(min-width:760px){.calc-grid{grid-template-columns:repeat(4,1fr)}}
+  .calc .out{font-weight:700;font-size:18px}
+  .tag{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--stroke);color:var(--muted)}
+  .footer{font-size:12px;color:var(--muted);margin-top:18px;text-align:center}
+
+  /* Animaciones sutiles */
+  .rise{opacity:0; transform: translateY(6px); animation: rise .35s ease forwards}
+  .rise:nth-child(1){animation-delay:.02s}
+  .rise:nth-child(2){animation-delay:.06s}
+  .rise:nth-child(3){animation-delay:.10s}
+  @keyframes rise{to{opacity:1; transform: translateY(0)}}
+
+  /* Acordeón objeciones */
+  .accordion{display:grid;gap:10px}
+  .acc-item{border:1px solid var(--stroke);border-radius:12px;overflow:hidden;background:var(--card);box-shadow:var(--shadow-soft)}
+  .acc-head{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .acc-head h4{margin:0;font-size:14px}
+  .acc-icon{transform:rotate(0);transition:transform .2s ease}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 14px}
+  .acc-body.open{padding:12px 14px}
+  .acc-item.open .acc-icon{transform:rotate(90deg)}
+
+  /* SVG chart */
+  .chart-card{grid-column:1/-1}
+  .chart-wrap{border:1px solid var(--stroke);border-radius:14px;padding:12px;box-shadow:var(--shadow-soft)}
+  .chart-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .legend-item{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
+  .legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block;background:currentColor}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="title"><h1>Huboo · Playbook BDR – España</h1></div>
+        <div class="subtitle">Fulfillment que escala marcas. Selecciona un sector para ver <span style="font-family:ui-monospace,Consolas,monospace">Dolores → Beneficios → Ejemplos → KPIs → Objeciones</span></div>
+      </div>
+      <div class="topbar">
+        <!-- Botón tema -->
+        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema (claro/oscuro)">
+          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span class="theme-label" id="themeLabel">Auto</span>
+        </button>
+        <!-- Hamburguesa -->
+        <button id="hamburger" class="hamburger" aria-label="Abrir/cerrar menú">
+          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Controles -->
+    <div id="controls" class="controls collapsible" role="region" aria-label="Controles de filtrado">
+      <select id="sectorSelect" class="select" aria-label="Seleccionar sector"></select>
+      <select id="exampleSelect" class="select" aria-label="Seleccionar ejemplo"></select>
+      <button id="resetBtn" class="btn ghost">Reiniciar</button>
+      <!-- TODO: tu CTA -->
+      <!-- <a class="btn" href="mailto:TU_EMAIL">Contactar</a>
+           <a class="btn ghost" href="https://www.linkedin.com/in/TU_LINKEDIN/" target="_blank">LinkedIn</a> -->
+    </div>
+
+    <!-- Pitch 30'' -->
+    <div class="section" id="pitch">
+      <div class="row">
+        <span class="pill">Pitch 30’’</span>
+        <span class="tag">Integraciones: Shopify · Amazon · eBay · Etsy · +</span>
+        <span class="tag">Centro: Madrid (UE Ready)</span>
+      </div>
+      <div class="hr"></div>
+      <p class="muted">
+        “Recogemos tu stock, lo almacenamos, preparamos y enviamos cada pedido en España y Europa, integrado a tus tiendas y marketplaces.
+        Tú te enfocas en vender; nosotros aseguramos SLA, trazabilidad y experiencia de entrega. Escalas sin ampliar tu estructura.”
+      </p>
+      <div class="kpis">
+        <div class="kpi" title="Coste por pedido vs. in-house"><div class="v">-15–30%</div><div class="muted">Coste por pedido <span class="tag">estimado</span></div></div>
+        <div class="kpi" title="Entregas peninsulares habituales"><div class="v">24–48h</div><div class="muted">Lead time ES <span class="tag">objetivo</span></div></div>
+        <div class="kpi" title="Precisión operativa"><div class="v">≤0.5%</div><div class="muted">Errores picking <span class="tag">meta</span></div></div>
+        <div class="kpi" title="Horas del equipo redirigidas a growth"><div class="v">+Tiempo</div><div class="muted">Foco en crecimiento</div></div>
+      </div>
+    </div>
+
+    <!-- Tarjetas -->
+    <div class="grid" id="cardsGrid" aria-live="polite"></div>
+
+    <!-- Chart KPIs -->
+    <div class="section chart-card">
+      <h2>KPIs visuales (sector activo)</h2>
+      <div class="chart-wrap">
+        <svg id="kpiChart" width="100%" height="220" viewBox="0 0 520 220" role="img" aria-label="Gráfico de barras de KPIs"></svg>
+        <div class="chart-legend">
+          <span class="legend-item" style="color:var(--accent)"><span class="legend-dot"></span> Ahorro %</span>
+          <span class="legend-item" style="color:var(--brand)"><span class="legend-dot"></span> Lead time (h)</span>
+          <span class="legend-item" style="color:var(--ok)"><span class="legend-dot"></span> Error picking (%)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calculadora -->
+    <div class="section calc">
+      <h2>Mini calculadora: ahorro estimado</h2>
+      <div class="calc-grid">
+        <div>
+          <label class="muted">Pedidos / mes</label>
+          <input id="c_orders" class="input" type="number" min="0" value="1500"/>
+        </div>
+        <div>
+          <label class="muted">Coste actual por pedido (€)</label>
+          <input id="c_cpp_now" class="input" type="number" min="0" step="0.01" value="4.20"/>
+        </div>
+        <div>
+          <label class="muted">Ahorro con Huboo (%)</label>
+          <input id="c_saving" class="input" type="number" min="0" max="60" step="1" value="20"/>
+        </div>
+        <div>
+          <label class="muted">Resultado</label>
+          <div class="out" id="c_result">€ 1,260 / mes</div>
+          <div class="muted" id="c_note">Estimación conservadora (fulfillment). Ajustar según complejidad.</div>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button id="calcBtn" class="btn primary">Calcular</button>
+        <span class="tag">Tip</span><span class="muted">Ajusta % según devoluciones, kits, volumetría, destinos UE</span>
+      </div>
+    </div>
+
+    <!-- Objeciones & Respuestas -->
+    <div class="section">
+      <h2>Objeciones & Respuestas (sector activo)</h2>
+      <div id="accordion" class="accordion"></div>
+    </div>
+
+    <!-- Guion BDR rápido -->
+    <div class="section">
+      <h2>Guion BDR (rápido)</h2>
+      <ol class="muted" style="margin:0; padding-left:18px">
+        <li><b>Abrir</b>: “Soy Nicolás, de Huboo. Veo que estáis creciendo con <span id="g_sector">Moda</span> y vendéis en <span id="g_canal">Shopify/marketplaces</span>. ¿Tienes 30’’?”</li>
+        <li><b>Dolor</b>: “¿Cómo gestionáis picos, devoluciones y SLA de última milla?”</li>
+        <li><b>Valor</b>: “Externalizando fulfillment, reducimos coste/pedido y lead time; mantienes foco en ventas.”</li>
+        <li><b>Prueba</b>: “Trabajamos con marcas DTC y retail en ES/UE; integración y visibilidad en tiempo real.”</li>
+        <li><b>Cierre</b>: “¿Te va bien una demo de 15’ para estimar ahorro y tiempos con vuestros volúmenes?”</li>
+      </ol>
+    </div>
+
+    <div class="footer">© Huboo · Playbook BDR (demo interno). Hecho para España · Single-file.</div>
+  </div>
+
+<script>
+/* =========================
+   Datos por sectores
+   ========================= */
+const DATA = [
+  {
+    id:"moda", nombre:"Moda & Accesorios (DTC)",
+    dolores:["Picos de demanda (rebajas, BF, drops)","Alta tasa de devoluciones (tallas/fit)","Necesidad de personalización (packs, regalos)"],
+    beneficios:["Escalado inmediato sin ampliar almacén propio","Gestión ágil de devoluciones y RMA","Kitting y packaging personalizado"],
+    ejemplos:[
+      {marca:"Blue Banana",pais:"ES",nota:"DTC con picos por campañas"},
+      {marca:"Pompeii",pais:"ES",nota:"Colecciones y devoluciones"},
+      {marca:"Scalpers",pais:"ES",nota:"Retail + eCommerce"}
+    ],
+    kpis:{ ahorroPct:28, leadH:36, errorPct:0.5 },
+    objeciones:[
+      {t:"“Tenemos logística propia”",r:"Mantenéis control comercial y producto; externalizar picking/packing y transporte os quita picos y costes variables. Empezamos por una categoría/pico y comparamos KPIs."},
+      {t:"“Nos preocupa la experiencia de marca”",r:"Personalizamos packaging, inserts y bundles. Podemos replicar vuestro unboxing y mantener SLAs de entrega 24–48h."},
+      {t:"“Devoluciones son un lío”",r:"RMA integrado: gestión y reacondicionado básico; visibilidad para CX y reposición de stock utilizable."}
+    ],
+    guion:{sector:"Moda", canal:"Shopify/marketplaces"}
+  },
+  {
+    id:"electronica", nombre:"Electrónica & Tech",
+    dolores:["Multireferencia y rotación alta","SLA exigentes (24–48h)","Devoluciones de alto valor"],
+    beneficios:["Reducción de errores (≤0.5%)","Integración marketplaces tech","Trazabilidad de stock/lotes"],
+    ejemplos:[
+      {marca:"PcComponentes",pais:"ES",nota:"Catálogo amplio"},
+      {marca:"Coolmod",pais:"ES",nota:"Alto mix de SKUs"},
+      {marca:"LDLC",pais:"FR",nota:"Expansión UE"}
+    ],
+    kpis:{ ahorroPct:20, leadH:30, errorPct:0.4 },
+    objeciones:[
+      {t:"“Necesitamos precisión absoluta”",r:"Procesos QA + escaneo por bulto/línea; auditorías y reportes de error diarios; meta ≤0.5% y acciones correctivas."},
+      {t:"“Los RMA nos consumen”",r:"Flujos separados para diagnóstico/valoración; re-etiquetado y reportes para backoffice de garantía."},
+      {t:"“Integraciones complejas”",r:"Conectores listos (Shopify/Amazon, etc.) y API; pruebas en sandbox sin afectar la operativa actual."}
+    ],
+    guion:{sector:"Electrónica", canal:"Shopify/Amazon/propia"}
+  },
+  {
+    id:"belleza", nombre:"Belleza & Cosmética",
+    dolores:["Kits y suscripciones","Packaging de marca","Control de caducidad (FEFO)"],
+    beneficios:["Preparación de suscripciones","Unboxing premium","Lotes FEFO y compliance"],
+    ejemplos:[
+      {marca:"Freshly Cosmetics",pais:"ES",nota:"DTC, kits recurrentes"},
+      {marca:"Cocunat",pais:"ES",nota:"Unboxing cuidado"},
+      {marca:"Sephora (EU)",pais:"UE",nota:"Volumen y variedad"}
+    ],
+    kpis:{ ahorroPct:24, leadH:40, errorPct:0.4 },
+    objeciones:[
+      {t:"“¿Y los caducados?”",r:"FEFO automatizado y alertas; informes de rotación/mermas para compra y marketing."},
+      {t:"“Los kits cambian mucho”",r:"Kitting flexible; plantillas de BOM por campaña y pre-packs para acelerar picos."},
+      {t:"“Cuidado con el packaging”",r:"SLA y QA para conservar estética; embalaje secundario adaptado al transporte."}
+    ],
+    guion:{sector:"Belleza", canal:"Shopify/marketplaces"}
+  },
+  {
+    id:"deporte", nombre:"Deporte & Outdoor",
+    dolores:["Estacionalidad marcada","Artículos voluminosos","Envíos internacionales"],
+    beneficios:["Escala de capacidad sin CAPEX","Manipulación de volumen/fragilidad","Red UE para expansión"],
+    ejemplos:[
+      {marca:"Deporvillage",pais:"ES",nota:"Picos estacionales"},
+      {marca:"Tradeinn",pais:"ES",nota:"Internacionalización"},
+      {marca:"Decathlon (digital)",pais:"UE",nota:"Volumen multipaís"}
+    ],
+    kpis:{ ahorroPct:22, leadH:42, errorPct:0.6 },
+    objeciones:[
+      {t:"“El coste de voluminosos es alto”",r:"Optimización de embalaje, rutas y acuerdos con carriers; simulamos costes por SKU/volumen."},
+      {t:"“Picos imprevisibles”",r:"Slots y buffers dedicados; previsiones por campaña, ramp-up en horas."},
+      {t:"“Daños en transporte”",r:"Refuerzo, etiquetado y fotos de control; trazabilidad de incidencias para reclamaciones."}
+    ],
+    guion:{sector:"Deporte", canal:"Propia/marketplaces"}
+  },
+  {
+    id:"hogar", nombre:"Hogar & Decoración",
+    dolores:["SKUs voluminosos/frágiles","Última milla cara","Exportación UE"],
+    beneficios:["Almacenaje y embalaje reforzado","Optimización de transporte","Visibilidad daños/devoluciones"],
+    ejemplos:[
+      {marca:"Kave Home",pais:"ES",nota:"Volumen/export UE"},
+      {marca:"Banak",pais:"ES",nota:"Mueble y fragilidad"},
+      {marca:"Made.com",pais:"UE",nota:"Volumetría/diseño"}
+    ],
+    kpis:{ ahorroPct:18, leadH:60, errorPct:0.7 },
+    objeciones:[
+      {t:"“Nuestros muebles se dañan”",r:"Materiales específicos, flejado y cantoneado; KPI de daño y mejora continua con fotos y causas."},
+      {t:"“Coste de última milla”",r:"Consolidación, franjas y acuerdos por volumetría; evaluamos 2H/White glove si aplica."},
+      {t:"“Gestión de devoluciones”",r:"Inspección, reacondicionado básico y rutas de retorno; decisión rápida de reposición/venta outlet."}
+    ],
+    guion:{sector:"Hogar", canal:"Propia/marketplaces"}
+  },
+  {
+    id:"food", nombre:"Alimentación no perecedera / Healthy",
+    dolores:["Lotes y fechas de consumo","Regulación/etiquetado UE","Suscripciones DTC"],
+    beneficios:["FEFO y trazabilidad","Compliance almacén","Escala para recurrentes"],
+    ejemplos:[
+      {marca:"Heura",pais:"ES",nota:"Expansión DTC/retail"},
+      {marca:"DietBox",pais:"ES",nota:"Suscripciones mensuales"},
+      {marca:"MyProtein",pais:"UK/UE",nota:"Volumen pan-UE"}
+    ],
+    kpis:{ ahorroPct:21, leadH:44, errorPct:0.5 },
+    objeciones:[
+      {t:"“Cumplimiento y auditorías”",r:"Registros de temperatura si aplica, FEFO y trazabilidad por lote; informes para auditorías."},
+      {t:"“Suscripciones variables”",r:"Ventanas de corte, pre-picks y slots dedicados; previsión por cohortes."},
+      {t:"“Roturas de stock”",r:"Alertas y reportes de reposición; visibilidad en tiempo real para compras."}
+    ],
+    guion:{sector:"Alimentación", canal:"Shopify/propia"}
+  },
+];
+
+/* =========================
+   DOM refs
+   ========================= */
+const $sector   = document.getElementById('sectorSelect');
+const $example  = document.getElementById('exampleSelect');
+const $grid     = document.getElementById('cardsGrid');
+const $reset    = document.getElementById('resetBtn');
+const $g_sector = document.getElementById('g_sector');
+const $g_canal  = document.getElementById('g_canal');
+const $accordion= document.getElementById('accordion');
+const $kpiChart = document.getElementById('kpiChart');
+
+/* =========================
+   Helpers de UI
+   ========================= */
+function fillSectorSelect(){
+  $sector.innerHTML = '';
+  DATA.forEach(s=>{
+    const opt = document.createElement('option');
+    opt.value = s.id; opt.textContent = s.nombre;
+    $sector.appendChild(opt);
+  });
+}
+function fillExampleSelect(s){
+  $example.innerHTML = '';
+  const optAll = document.createElement('option');
+  optAll.value = 'all'; optAll.textContent = 'Todos los ejemplos';
+  $example.appendChild(optAll);
+  s.ejemplos.forEach(e=>{
+    const opt = document.createElement('option');
+    opt.value = e.marca; opt.textContent = e.marca;
+    $example.appendChild(opt);
+  });
+}
+fillSectorSelect();
+
+/* Tarjetas */
+function cardHTML(title, items){
+  return `
+    <div class="card rise">
+      <h3>${title}</h3>
+      <ul class="list">
+        ${items.map(x=>`<li>${x}</li>`).join('')}
+      </ul>
+    </div>
+  `;
+}
+function examplesHTML(ex){
+  return `
+    <div class="card rise">
+      <h3>Ejemplos reales (${ex.length})</h3>
+      <ul class="list">
+        ${ex.map(e=>`<li><b>${e.marca}</b> <span class="muted">(${e.pais})</span> — ${e.nota}</li>`).join('')}
+      </ul>
+      <p class="muted" style="margin-top:8px">Uso interno para discurso comercial. Verifica logos/casos antes de publicarlos.</p>
+    </div>
+  `;
+}
+
+/* Acordeón de objeciones */
+function accordionHTML(items){
+  return items.map((o,i)=>`
+    <div class="acc-item" data-idx="${i}">
+      <div class="acc-head">
+        <h4>${o.t}</h4>
+        <svg class="acc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 5v14l11-7-11-7z"/></svg>
+      </div>
+      <div class="acc-body"><div class="muted">${o.r}</div></div>
+    </div>
+  `).join('');
+}
+function bindAccordion(){
+  document.querySelectorAll('.acc-item').forEach(el=>{
+    const head = el.querySelector('.acc-head');
+    const body = el.querySelector('.acc-body');
+    head.addEventListener('click', ()=>{
+      const open = el.classList.toggle('open');
+      body.style.maxHeight = open ? (body.scrollHeight + 24) + 'px' : '0px';
+      if(open) body.classList.add('open'); else body.classList.remove('open');
+    });
+  });
+}
+
+/* Chart SVG (barras) */
+function renderChart(kpis){
+  // Limpia
+  while($kpiChart.firstChild) $kpiChart.removeChild($kpiChart.firstChild);
+
+  const W=520, H=220, pad=36, axisY=H-40, barW=40, gap=70;
+  const groups = [
+    {label:'Ahorro %', val:kpis.ahorroPct, color:'var(--accent)', max:40, fmt:v=>v+'%'},
+    {label:'Lead time (h)', val:kpis.leadH, color:'var(--brand)', max:72, fmt:v=>v+'h'},
+    {label:'Error picking %', val:kpis.errorPct, color:'var(--ok)', max:1.2, fmt:v=>v+'%'}
+  ];
+  // Ejes
+  const axis = document.createElementNS('http://www.w3.org/2000/svg','path');
+  axis.setAttribute('d', `M ${pad} ${axisY} H ${W-pad}`);
+  axis.setAttribute('stroke','currentColor'); axis.setAttribute('opacity','0.3');
+  $kpiChart.appendChild(axis);
+
+  groups.forEach((g,i)=>{
+    const x = pad + 30 + i*(barW+gap);
+    const maxH = axisY - pad;
+    const h = Math.max(4, (g.val/g.max) * maxH);
+    const y = axisY - h;
+
+    // Barra
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', x); rect.setAttribute('y', y);
+    rect.setAttribute('width', barW); rect.setAttribute('height', h);
+    rect.setAttribute('fill', g.color);
+    rect.setAttribute('rx','6');
+    rect.style.transition='all .35s ease';
+    $kpiChart.appendChild(rect);
+
+    // Valor
+    const val = document.createElementNS('http://www.w3.org/2000/svg','text');
+    val.setAttribute('x', x+barW/2); val.setAttribute('y', y-6);
+    val.setAttribute('text-anchor','middle'); val.setAttribute('font-size','12');
+    val.textContent = g.fmt(g.val);
+    $kpiChart.appendChild(val);
+
+    // Label
+    const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
+    lbl.setAttribute('x', x+barW/2); lbl.setAttribute('y', axisY+16);
+    lbl.setAttribute('text-anchor','middle'); lbl.setAttribute('font-size','12'); lbl.setAttribute('fill','var(--muted)');
+    lbl.textContent = g.label;
+    $kpiChart.appendChild(lbl);
+  });
+}
+
+/* Render principal */
+function render(sectorId, exampleFilter='all'){
+  const s = DATA.find(x=>x.id===sectorId) || DATA[0];
+  $g_sector.textContent = s.guion.sector;
+  $g_canal.textContent  = s.guion.canal;
+
+  // Selector de ejemplos
+  fillExampleSelect(s);
+
+  let examples = s.ejemplos;
+  if(exampleFilter!=='all'){
+    examples = s.ejemplos.filter(e => e.marca === exampleFilter);
+  }
+
+  $grid.innerHTML = `
+    ${cardHTML('Dolores típicos', s.dolores)}
+    ${cardHTML('Beneficios Huboo', s.beneficios)}
+    ${examplesHTML(examples)}
+  `;
+
+  // Objeciones
+  $accordion.innerHTML = accordionHTML(s.objeciones);
+  bindAccordion();
+
+  // Chart
+  renderChart(s.kpis);
+}
+render(DATA[0].id);
+
+/* Eventos */
+$sector.addEventListener('change', e=> render(e.target.value, 'all'));
+$example.addEventListener('change', e=> render($sector.value, e.target.value));
+$reset.addEventListener('click', ()=>{
+  $sector.selectedIndex = 0;
+  render(DATA[0].id, 'all');
+});
+
+/* Calculadora */
+function calc(){
+  const orders = +document.getElementById('c_orders').value||0;
+  const cppNow = +document.getElementById('c_cpp_now').value||0;
+  const saving = +document.getElementById('c_saving').value||0;
+  const ahorroUnit = cppNow * (saving/100);
+  const ahorroMensual = Math.max(0, ahorroUnit*orders);
+  document.getElementById('c_result').textContent = `€ ${ahorroMensual.toLocaleString('es-ES',{maximumFractionDigits:0})} / mes`;
+}
+document.getElementById('calcBtn').addEventListener('click', calc);
+calc();
+
+/* Tema: sol/luna */
+const THEME_KEY='huboo_theme';
+const $themeBtn=document.getElementById('themeBtn');
+const $iconSun=document.getElementById('iconSun');
+const $iconMoon=document.getElementById('iconMoon');
+const $themeLabel=document.getElementById('themeLabel');
+
+function setTheme(mode){
+  document.documentElement.setAttribute('data-theme', mode);
+  localStorage.setItem(THEME_KEY, mode);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const effective=(mode==='auto')?(prefersDark?'dark':'light'):mode;
+  const isLight = effective==='light';
+  $iconSun.style.display = isLight ? 'none' : '';
+  $iconMoon.style.display= isLight ? '' : 'none';
+  $themeLabel.textContent = mode.charAt(0).toUpperCase()+mode.slice(1);
+}
+function cycleTheme(){
+  const cur = localStorage.getItem(THEME_KEY) || 'auto';
+  const next = (cur==='auto') ? 'light' : (cur==='light' ? 'dark' : 'auto');
+  setTheme(next);
+}
+(function initTheme(){ setTheme(localStorage.getItem(THEME_KEY)||'auto'); })();
+$themeBtn.addEventListener('click', cycleTheme);
+
+/* Menú hamburguesa */
+const $hamburger=document.getElementById('hamburger');
+const $controls=document.getElementById('controls');
+$hamburger.addEventListener('click', ()=>{
+  const open=$controls.classList.toggle('open');
+  $hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+</script>
+</body>
+</html>
