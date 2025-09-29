@@ -1,560 +1,555 @@
-<!doctype html>
-<html lang="es" data-theme="auto">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Huboo | Playbook BDR – Sectores & Valor</title>
-<meta name="description" content="Dashboard de sectores eCommerce, dolores, beneficios de fulfillment, ejemplos reales, KPIs y objeciones. Calculadora y guion BDR." />
-<style>
-  :root{
-    --bg:#27282d80; --card:#3a3c47; --text:#e9edf1; --muted:#a8b3be; --stroke:#292b33;
-    --accent:#60a5fa; --brand:#6ee7b7;
-    --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
-    --shadow: 0 8px 24px rgba(18, 18, 18, 0.25), 0 1px 0 rgba(255,255,255,.02) inset;
-    --shadow-soft: 0 6px 16px rgba(21, 20, 20, 0.18);
-  }
-  @media (prefers-color-scheme: light){
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Huboo – Chuleta BDR (ES)</title>
+  <meta name="description" content="Chuleta interactiva y responsive para tu primer día como BDR/BDM en Huboo: flujo logístico, ICP, preguntas, métricas, objeciones y glosario." />
+  <style>
     :root{
-      --bg:#f6f7f9; --card:#ffffff; --text:#0b0c10; --muted:#737b84; --stroke:#b1b4ba;
-      --shadow: 0 8px 24px rgba(18,24,40,.08);
-      --shadow-soft: 0 6px 16px rgba(18,24,40,.06);
+      --bg:#0e1116; --muted:#1a1f29; --text:#e9eef5; --sub:#a9b4c3; --brand:#5dd39e; --accent:#46a0ff; --card:#131823; --good:#1ccb7a; --warn:#f5a623; --bad:#ff5a5f; --shadow:0 10px 30px rgba(0,0,0,.25)
     }
-  }
-  [data-theme="light"]{
-    --bg:#e4e2d6; --card:#c1b6a9; --text:#2f323d; --muted:#544e45; --stroke:#a9b1be;
-    --shadow: 0 8px 24px rgba(18,24,40,.08);
-    --shadow-soft: 0 6px 16px rgba(18,24,40,.06);
-  }
-  [data-theme="dark"]{
-    --bg:#35363ad1; --card:#5d5e68; --text:#e8edf1; --muted:#dfe8f1; --stroke:#3f023f;
-    --shadow: 0 8px 24px rgba(29, 28, 28, 0.25), 0 1px 0 rgba(255,255,255,.02) inset;
-    --shadow-soft: 0 6px 16px rgba(33, 32, 32, 0.18);
-  }
+    .light{ --bg:#f8fafc; --muted:#e9eef5; --text:#0e1116; --sub:#344256; --brand:#2fb27d; --accent:#0b6bcb; --card:#ffffff; --shadow:0 10px 24px rgba(2,8,20,.08)}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:var(--bg);color:var(--text);font:500 15px/1.45 "Inter",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue","Arial",sans-serif;letter-spacing:.2px}
+    a{color:var(--accent);text-decoration:none}
+    .app{display:grid;grid-template-columns:280px 1fr;min-height:100dvh}
+    nav{background:var(--card);border-right:1px solid var(--muted);padding:16px;position:sticky;top:0;height:100dvh}
+    .brand{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .logo{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,var(--brand),var(--accent));box-shadow:var(--shadow)}
+    .brand h1{font-size:16px;margin:0}
+    .sub{color:var(--sub);font-weight:600;font-size:12px}
+    .navlinks{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    .navlinks a{padding:10px 12px;border-radius:12px;background:transparent;color:var(--text);border:1px solid transparent}
+    .navlinks a:hover{background:var(--muted)}
+    .navlinks a.active{background:linear-gradient(180deg,var(--muted),transparent);border-color:var(--muted)}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--card);position:sticky;top:0;z-index:5;border-bottom:1px solid var(--muted); flex-wrap:wrap; gap:8px}
+    .search{flex:1;display:flex;gap:8px;min-width:260px;max-width:720px;margin:0 12px}
+    .search input{flex:1;padding:10px 12px;border-radius:12px;border:1px solid var(--muted);background:var(--bg);color:var(--text)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--muted);background:var(--card);color:var(--text);cursor:pointer}
+    .btn:hover{filter:brightness(1.05)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;padding:18px}
+    .card{grid-column:span 12;background:var(--card);border:1px solid var(--muted);border-radius:18px;box-shadow:var(--shadow);padding:16px}
+    .card h2{margin:0 0 8px;font-size:18px}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid var(--muted);background:var(--bg);font-size:12px}
+    .row{display:flex;flex-wrap:wrap;gap:8px}
+    .pill{padding:6px 10px;border:1px dashed var(--muted);border-radius:999px;font-size:12px}
+    .kpi{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .kpi .item{background:var(--bg);border:1px dashed var(--muted);border-radius:14px;padding:10px}
+    .flow{display:grid;gap:10px}
+    .step{border:1px solid var(--muted);border-radius:14px;padding:12px;background:linear-gradient(180deg,transparent,rgba(255,255,255,.02))}
+    .step header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .step button{all:unset;cursor:pointer}
+    .step .content{display:none;padding-top:8px;color:var(--sub)}
+    .copy{cursor:pointer;border:1px solid var(--muted);padding:6px 10px;border-radius:10px}
+    .ok{color:var(--good)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    .accordion{border:1px solid var(--muted);border-radius:14px;overflow:hidden}
+    .accordion details{border-top:1px solid var(--muted);background:var(--card)}
+    .accordion details:first-child{border-top:none}
+    summary{padding:12px 14px;cursor:pointer;font-weight:600}
+    details .inner{padding:0 14px 14px;color:var(--sub)}
+    .list{display:grid;gap:8px}
+    .check{display:flex;align-items:center;gap:10px}
+    .check input{width:18px;height:18px}
+    .foot{padding:18px;text-align:center;color:var(--sub)}
+    .badge{font-size:11px;padding:2px 8px;border-radius:8px;border:1px solid var(--muted)}
+    .toolbar{display:flex;gap:8px;align-items:center}
+    .mobilebar{display:none}
+    .chips{display:flex;gap:8px;align-items:center;overflow:auto;padding:6px 0}
+    .chip{white-space:nowrap;border:1px solid var(--muted);background:var(--bg);padding:6px 10px;border-radius:999px;cursor:pointer}
+    .chip:hover{background:var(--muted)}
 
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-  a{color:var(--accent);text-decoration:none}
-  .wrap{max-width:1100px;margin:0 auto;padding:20px}
-
-  header{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:16px}
-  .title h1{font-size:20px;margin:0}
-  .subtitle{font-size:13px;color:var(--muted);margin-top:2px}
-  .topbar{display:flex;align-items:center;gap:10px}
-
-  .hamburger{display:none;border:1px solid var(--stroke);background:var(--card);border-radius:12px;padding:8px;cursor:pointer}
-  .hamburger svg{width:20px;height:20px;display:block}
-  @media (max-width:860px){ .hamburger{display:inline-flex} }
-
-  .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  .controls.collapsible{display:flex}
-  @media (max-width:860px){
-    .controls{display:none}
-    .controls.open{display:flex;flex-direction:column;align-items:stretch;margin-top:10px}
-  }
-
-  .select,.input,.btn{
-    border:1px solid var(--stroke); background:var(--card); color:var(--text);
-    padding:10px 12px; border-radius:12px; font-size:14px; transition:.2s ease; outline:none;
-  }
-  .select:hover,.input:hover{border-color:#394150}
-  .btn{cursor:pointer;font-weight:600}
-  .btn.primary{background:linear-gradient(135deg,var(--accent),#22d3ee); color:#081018; border:none}
-  .btn.ghost{background:transparent}
-
-  .theme-btn{border:1px solid var(--stroke);background:var(--card);border-radius:12px;padding:8px 10px;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
-  .theme-btn svg{width:18px;height:18px;display:block}
-  .theme-label{font-size:12px;color:var(--muted)}
-
-  .grid{display:grid;grid-template-columns:1fr;gap:16px}
-  @media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
-  .card{
-    background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(0,0,0,.02));
-    border:1px solid var(--stroke); border-radius:16px; padding:16px; display:flex; flex-direction:column; gap:10px;
-    box-shadow:var(--shadow-soft);
-    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease, background .25s ease;
-  }
-  .card:hover{ box-shadow:var(--shadow); transform: translateY(-2px); }
-  .card h3{margin:0 0 6px 0; font-size:15px}
-  .list{margin:0;color:var(--muted);font-size:14px}
-  .list li{margin:8px 0 0 0}
-  .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--stroke);border-radius:999px;font-size:12px;color:var(--muted)}
-  .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
-  .kpi{border:1px dashed var(--stroke);border-radius:14px;padding:12px;transition:.25s ease;box-shadow:var(--shadow-soft)}
-  .kpi:hover{box-shadow:var(--shadow)}
-  .kpi .v{font-weight:700;font-size:18px}
-  .muted{color:var(--muted)}
-  .hr{height:1px;background:var(--stroke);margin:18px 0;border-radius:1px}
-  .section{border:1px solid var(--stroke);border-radius:16px;padding:16px;margin-top:18px;background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(0,0,0,.02)); box-shadow:var(--shadow-soft)}
-  .section h2{font-size:16px;margin:0 0 10px 0}
-  .calc-grid{display:grid;grid-template-columns:1fr;gap:10px}
-  @media(min-width:760px){.calc-grid{grid-template-columns:repeat(4,1fr)}}
-  .calc .out{font-weight:700;font-size:18px}
-  .tag{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid var(--stroke);color:var(--muted)}
-  .footer{font-size:12px;color:var(--muted);margin-top:18px;text-align:center}
-
-  /* Animaciones sutiles */
-  .rise{opacity:0; transform: translateY(6px); animation: rise .35s ease forwards}
-  .rise:nth-child(1){animation-delay:.02s}
-  .rise:nth-child(2){animation-delay:.06s}
-  .rise:nth-child(3){animation-delay:.10s}
-  @keyframes rise{to{opacity:1; transform: translateY(0)}}
-
-  /* Acordeón objeciones */
-  .accordion{display:grid;gap:10px}
-  .acc-item{border:1px solid var(--stroke);border-radius:12px;overflow:hidden;background:var(--card);box-shadow:var(--shadow-soft)}
-  .acc-head{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
-  .acc-head h4{margin:0;font-size:14px}
-  .acc-icon{transform:rotate(0);transition:transform .2s ease}
-  .acc-body{max-height:0;overflow:hidden;transition:max-height .25s ease;padding:0 14px}
-  .acc-body.open{padding:12px 14px}
-  .acc-item.open .acc-icon{transform:rotate(90deg)}
-
-  /* SVG chart */
-  .chart-card{grid-column:1/-1}
-  .chart-wrap{border:1px solid var(--stroke);border-radius:14px;padding:12px;box-shadow:var(--shadow-soft)}
-  .chart-legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-  .legend-item{font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:6px}
-  .legend-dot{width:10px;height:10px;border-radius:2px;display:inline-block;background:currentColor}
-</style>
+    @media (max-width: 980px){
+      .app{grid-template-columns:1fr}
+      nav{position:fixed;inset:0 40% 0 0;transform:translateX(-101%);transition:transform .3s ease;z-index:9}
+      nav.open{transform:none}
+      .mobilebar{display:flex}
+    }
+    /* Click-to-explain acronyms */
+    .def{display:inline; border-bottom:2px dotted var(--accent); cursor:pointer; background:transparent; color:inherit; padding:0 2px; border-radius:4px}
+    .def:hover{background:var(--muted)}
+    .overlay{position:fixed; inset:0; background:rgba(0,0,0,.35); backdrop-filter:blur(2px); z-index:50}
+    .overlay.hidden{display:none}
+    .pop{position:fixed; left:50%; bottom:14px; transform:translateX(-50%); max-width:740px; width:calc(100% - 28px); background:var(--card); border:1px solid var(--muted); border-radius:16px; box-shadow:var(--shadow); z-index:51}
+    .pop.hidden{display:none}
+    .pop .h{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 14px; border-bottom:1px solid var(--muted)}
+    .pop .b{padding:12px 14px; color:var(--sub)}
+    .gitem{border:1px dashed var(--muted); border-radius:12px; padding:10px; background:var(--bg)}
+    .gtitle{font-weight:700; margin-bottom:4px}
+    .btnlink{display:inline-flex; align-items:center; gap:6px; padding:8px 10px; border-radius:10px; border:1px solid var(--muted); background:var(--bg); cursor:pointer}
+    .glossary-tools{display:flex; gap:8px; align-items:center; margin:8px 0}
+    .glossary-tools input{flex:1; padding:8px 10px; border-radius:10px; border:1px solid var(--muted); background:var(--bg); color:var(--text)}
+  </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <div class="title"><h1>Huboo · Playbook BDR – España</h1></div>
-        <div class="subtitle">Fulfillment que escala marcas. Selecciona un sector para ver <span style="font-family:ui-monospace,Consolas,monospace">Dolores → Beneficios → Ejemplos → KPIs → Objeciones</span></div>
-      </div>
-      <div class="topbar">
-        <!-- Botón tema -->
-        <button id="themeBtn" class="theme-btn" aria-label="Cambiar tema (claro/oscuro)">
-          <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-          <svg id="iconMoon" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <span class="theme-label" id="themeLabel">Auto</span>
-        </button>
-        <!-- Hamburguesa -->
-        <button id="hamburger" class="hamburger" aria-label="Abrir/cerrar menú">
-          <svg viewBox="0 0 24 24" stroke="currentColor" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke-width="2" stroke-linecap="round"/></svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- Controles -->
-    <div id="controls" class="controls collapsible" role="region" aria-label="Controles de filtrado">
-      <select id="sectorSelect" class="select" aria-label="Seleccionar sector"></select>
-      <select id="exampleSelect" class="select" aria-label="Seleccionar ejemplo"></select>
-      <button id="resetBtn" class="btn ghost">Reiniciar</button>
-      <!-- TODO: tu CTA -->
-      <!-- <a class="btn" href="mailto:TU_EMAIL">Contactar</a>
-           <a class="btn ghost" href="https://www.linkedin.com/in/TU_LINKEDIN/" target="_blank">LinkedIn</a> -->
-    </div>
-
-    <!-- Pitch 30'' -->
-    <div class="section" id="pitch">
-      <div class="row">
-        <span class="pill">Pitch 30’’</span>
-        <span class="tag">Integraciones: Shopify · Amazon · eBay · Etsy · +</span>
-        <span class="tag">Centro: Madrid (UE Ready)</span>
-      </div>
-      <div class="hr"></div>
-      <p class="muted">
-        “Recogemos tu stock, lo almacenamos, preparamos y enviamos cada pedido en España y Europa, integrado a tus tiendas y marketplaces.
-        Tú te enfocas en vender; nosotros aseguramos SLA, trazabilidad y experiencia de entrega. Escalas sin ampliar tu estructura.”
-      </p>
-      <div class="kpis">
-        <div class="kpi" title="Coste por pedido vs. in-house"><div class="v">-15–30%</div><div class="muted">Coste por pedido <span class="tag">estimado</span></div></div>
-        <div class="kpi" title="Entregas peninsulares habituales"><div class="v">24–48h</div><div class="muted">Lead time ES <span class="tag">objetivo</span></div></div>
-        <div class="kpi" title="Precisión operativa"><div class="v">≤0.5%</div><div class="muted">Errores picking <span class="tag">meta</span></div></div>
-        <div class="kpi" title="Horas del equipo redirigidas a growth"><div class="v">+Tiempo</div><div class="muted">Foco en crecimiento</div></div>
-      </div>
-    </div>
-
-    <!-- Tarjetas -->
-    <div class="grid" id="cardsGrid" aria-live="polite"></div>
-
-    <!-- Chart KPIs -->
-    <div class="section chart-card">
-      <h2>KPIs visuales (sector activo)</h2>
-      <div class="chart-wrap">
-        <svg id="kpiChart" width="100%" height="220" viewBox="0 0 520 220" role="img" aria-label="Gráfico de barras de KPIs"></svg>
-        <div class="chart-legend">
-          <span class="legend-item" style="color:var(--accent)"><span class="legend-dot"></span> Ahorro %</span>
-          <span class="legend-item" style="color:var(--brand)"><span class="legend-dot"></span> Lead time (h)</span>
-          <span class="legend-item" style="color:var(--ok)"><span class="legend-dot"></span> Error picking (%)</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Calculadora -->
-    <div class="section calc">
-      <h2>Mini calculadora: ahorro estimado</h2>
-      <div class="calc-grid">
+  <div class="app">
+    <nav id="sidebar" aria-label="Navegación principal">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
         <div>
-          <label class="muted">Pedidos / mes</label>
-          <input id="c_orders" class="input" type="number" min="0" value="1500"/>
-        </div>
-        <div>
-          <label class="muted">Coste actual por pedido (€)</label>
-          <input id="c_cpp_now" class="input" type="number" min="0" step="0.01" value="4.20"/>
-        </div>
-        <div>
-          <label class="muted">Ahorro con Huboo (%)</label>
-          <input id="c_saving" class="input" type="number" min="0" max="60" step="1" value="20"/>
-        </div>
-        <div>
-          <label class="muted">Resultado</label>
-          <div class="out" id="c_result">€ 1,260 / mes</div>
-          <div class="muted" id="c_note">Estimación conservadora (fulfillment). Ajustar según complejidad.</div>
+          <h1>Huboo · BDR</h1>
+          <div class="sub">Chuleta interactiva (ES)</div>
         </div>
       </div>
-      <div class="row" style="margin-top:10px">
-        <button id="calcBtn" class="btn primary">Calcular</button>
-        <span class="tag">Tip</span><span class="muted">Ajusta % según devoluciones, kits, volumetría, destinos UE</span>
+      <div class="navlinks" id="navlinks">
+        <a href="#inicio" class="active">🚀 Inicio</a>
+        <a href="#flujo">📦 Flujo logístico</a>
+        <a href="#icp">🎯 ICP & Cualificación</a>
+        <a href="#metricas">📊 Métricas & ROI</a>
+        <a href="#objeciones">🧩 Objeciones & Respuestas</a>
+        <a href="#glosario">📚 Glosario</a>
+        <a href="#pitch">🗣️ Pitch</a>
+        <a href="#check">✅ Checklist Día 1</a>
       </div>
-    </div>
+    </nav>
 
-    <!-- Objeciones & Respuestas -->
-    <div class="section">
-      <h2>Objeciones & Respuestas (sector activo)</h2>
-      <div id="accordion" class="accordion"></div>
-    </div>
+    <main>
+      <header class="topbar">
+        <div class="mobilebar">
+          <button class="btn" id="hamburger" aria-label="Abrir menú">☰</button>
+        </div>
+        <div class="toolbar">
+          <button class="btn" id="glossBtn" aria-label="Abrir glosario">❓ Glosario</button>
+          <button class="btn" id="themeBtn" aria-label="Cambiar tema">🌙</button>
+          <span class="badge" id="statusBadge">Modo oscuro</span>
+        </div>
+        <div class="search" role="search">
+          <input id="search" type="search" placeholder="Buscar en la chuleta (p.ej. ‘SLA’, ‘Amazon’, ‘devoluciones’)" />
+          <button class="btn" id="clearSearch">Limpiar</button>
+        </div>
+        <div class="chips" id="termChips" aria-label="Términos rápidos"></div>
+        <button class="btn" id="installBtn" hidden>➕ Instalar (PWA)</button>
+      </header>
 
-    <!-- Guion BDR rápido -->
-    <div class="section">
-      <h2>Guion BDR (rápido)</h2>
-      <ol class="muted" style="margin:0; padding-left:18px">
-        <li><b>Abrir</b>: “Soy Nicolás, de Huboo. Veo que estáis creciendo con <span id="g_sector">Moda</span> y vendéis en <span id="g_canal">Shopify/marketplaces</span>. ¿Tienes 30’’?”</li>
-        <li><b>Dolor</b>: “¿Cómo gestionáis picos, devoluciones y SLA de última milla?”</li>
-        <li><b>Valor</b>: “Externalizando fulfillment, reducimos coste/pedido y lead time; mantienes foco en ventas.”</li>
-        <li><b>Prueba</b>: “Trabajamos con marcas DTC y retail en ES/UE; integración y visibilidad en tiempo real.”</li>
-        <li><b>Cierre</b>: “¿Te va bien una demo de 15’ para estimar ahorro y tiempos con vuestros volúmenes?”</li>
-      </ol>
-    </div>
+      <section class="grid" id="content">
+        <article class="card" id="inicio">
+          <h2>🚀 Objetivo del BDR/BDM en Huboo</h2>
+          <p><strong>Explicar simple</strong> la propuesta de valor, <strong>cualificar</strong> rápido, y <strong>generar pipeline</strong> con oportunidades reales. Vende crecimiento, no solo logística.</p>
+          <div class="row" aria-label="puntos-clave">
+            <span class="tag">⚙️ Fulfilment de punta a punta</span>
+            <span class="tag">🧠 Tech propia + integraciones</span>
+            <span class="tag">🚀 Escalabilidad en Europa</span>
+            <span class="tag">🤝 Servicio + SLA</span>
+          </div>
+        </article>
 
-    <div class="footer">© Huboo · Playbook BDR (demo interno). Hecho para España · Single-file.</div>
+        <article class="card" id="flujo">
+          <h2>📦 Flujo logístico – de clic a entrega</h2>
+          <div class="flow" id="flow">
+            <div class="step">
+              <header>
+                <div>1) <strong>Integración eCommerce</strong> (Shopify, Amazon, Woo, etc.)</div>
+                <button aria-label="Mostrar">▼</button>
+              </header>
+              <div class="content">Pedidos y stock sincronizados en tiempo real. Menos errores, menos retrasos.</div>
+            </div>
+            <div class="step">
+              <header>
+                <div>2) <strong>Recepción de inventario</strong> (inbound)</div>
+                <button aria-label="Mostrar">▼</button>
+              </header>
+              <div class="content">Recepción, conteo y ubicación del stock. SLA de ingreso y visibilidad.</div>
+            </div>
+            <div class="step">
+              <header>
+                <div>3) <strong>Pick & Pack</strong></div>
+                <button aria-label="Mostrar">▼</button>
+              </header>
+              <div class="content">Recogida eficiente, empaquetado correcto, personalización opcional (packaging).</div>
+            </div>
+            <div class="step">
+              <header>
+                <div>4) <strong>Envío & tracking</strong></div>
+                <button aria-label="Mostrar">▼</button>
+              </header>
+              <div class="content">Optimización de transportistas por destino/SLAs. Seguimiento para marca y cliente final.</div>
+            </div>
+            <div class="step">
+              <header>
+                <div>5) <strong>Devoluciones (RMA)</strong></div>
+                <button aria-label="Mostrar">▼</button>
+              </header>
+              <div class="content">Portal de devoluciones, reacondicionado o reposición. Impacta en NPS y repetición de compra.</div>
+            </div>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <span class="pill">Dolores comunes: picos estacionales · errores picking · SLA incumplidos · costes ocultos</span>
+            <span class="pill">Valor: velocidad · precisión · escalabilidad · experiencia cliente</span>
+          </div>
+        </article>
+
+        <article class="card" id="icp">
+          <h2>🎯 ICP & Cualificación (SPICED rápido)</h2>
+          <div class="row" style="margin-bottom:10px">
+            <span class="tag">D2C moda</span>
+            <span class="tag">Cosmética & suplementos</span>
+            <span class="tag">Electrónica & gadgets</span>
+            <span class="tag">Hogar & decoración</span>
+            <span class="tag">Marketplaces sellers</span>
+            <span class="tag">Startups / scale-ups</span>
+          </div>
+          <div class="accordion">
+            <details open>
+              <summary>🧭 Preguntas de apertura</summary>
+              <div class="inner list">
+                <div>• ¿Cómo gestionáis hoy la logística (in-house, 3PL)?</div>
+                <div>• ¿Qué integra vuestra tienda: Shopify/Amazon/otro?</div>
+                <div>• Volumen mensual de pedidos / SKUs / destinos principales.</div>
+                <div>• Picos estacionales o campañas (Black Friday, drops…).</div>
+              </div>
+            </details>
+            <details>
+              <summary>🧪 Problema & Impacto</summary>
+              <div class="inner list">
+                <div>• ¿Dónde se rompen los SLAs hoy? (ingreso stock, preparación, transporte).</div>
+                <div>• ¿Tasa de errores/devoluciones y coste asociado?</div>
+                <div>• ¿Cómo afecta a NPS, repetición y CAC/LTV?</div>
+              </div>
+            </details>
+            <details>
+              <summary>💶 Presupuesto & Decisión</summary>
+              <div class="inner list">
+                <div>• ¿Qué presupuesto tienen para fulfilment por pedido?</div>
+                <div>• ¿Quién decide el cambio de 3PL y en qué plazo?</div>
+                <div>• Próximos hitos (rondas, expansiones, nuevos países).</div>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="card" id="metricas">
+          <h2>📊 Métricas que importan + mini ROI</h2>
+          <div class="kpi">
+            <div class="item"><strong>Tiempo a entrega</strong><br><span class="sub">% entregas D+1 / D+2</span></div>
+            <div class="item"><strong>Exactitud picking</strong><br><span class="sub">Errores por 1.000 pedidos</span></div>
+            <div class="item"><strong>Coste por pedido</strong><br><span class="sub">Almacenaje + pick/pack + transporte</span></div>
+            <div class="item"><strong>NPS / CSAT</strong><br><span class="sub">Impacto post-venta y devoluciones</span></div>
+          </div>
+          <div style="margin-top:10px" class="accordion">
+            <details>
+              <summary>🧮 Calculadora rápida de ROI</summary>
+              <div class="inner">
+                <label>Pedidos/mes <input id="orders" type="number" min="0" value="3000"></label>
+                <label style="margin-left:8px">Ahorro/pedido (€) <input id="save" type="number" min="0" step="0.1" value="0.6"></label>
+                <button class="btn" id="calc">Calcular</button>
+                <span id="roi" class="pill" style="margin-left:8px">—</span>
+              </div>
+            </details>
+          </div>
+        </article>
+
+        <article class="card" id="objeciones">
+          <h2>🧩 Objeciones comunes & cómo responder</h2>
+          <div class="accordion">
+            <details open>
+              <summary>“Somos pequeños, aún no necesitamos 3PL”</summary>
+              <div class="inner">Empieza cuando el coste variable por pedido sea menor que tu coste interno. Además, te permite absorber picos sin contratar ni alquilar más espacio.</div>
+            </details>
+            <details>
+              <summary>“Nos preocupa perder control de la experiencia”</summary>
+              <div class="inner">Panel con trazabilidad, reglas de transporte y opciones de branding en packaging. Mantienes visibilidad sin el dolor operativo.</div>
+            </details>
+            <details>
+              <summary>“El cambio es arriesgado”</summary>
+              <div class="inner">Onboarding por fases (SKU críticos primero), métricas semanales y plan de salida sin lock-in a largo plazo.</div>
+            </details>
+            <details>
+              <summary>“El precio del envío es alto”</summary>
+              <div class="inner">Optimización por carril y volumen agregado multi-cliente → mejores tarifas promedio sin perder SLA.</div>
+            </details>
+          </div>
+        </article>
+
+        <article class="card" id="glosario">
+          <h2>📚 Glosario esencial (click para explicar)</h2>
+          <p class="sub">Pulsa sobre cualquier acrónimo subrayado o elígelo en los chips superiores. Cada término incluye una analogía deportiva para explicarlo con claridad.</p>
+          <div class="glossary-tools">
+            <input id="glossarySearch" type="search" placeholder="Buscar término: p.ej. 3PL, SLA, NPS, SKU...">
+            <button class="btn" id="glossaryClear">Limpiar</button>
+          </div>
+          <div class="list" id="glossaryList"></div>
+        </article>
+
+        <article class="card" id="pitch">
+          <h2>🗣️ Elevator pitch (copiar)</h2>
+          <p id="pitchTxt"><strong>Huboo</strong> ayuda a marcas de eCommerce a crecer eliminando la fricción logística. Almacenamos, preparamos y enviamos pedidos por toda Europa con integraciones nativas (Shopify, Amazon y más), visibilidad total y SLAs exigentes. Tú te enfocas en vender; nosotros en que cada entrega llegue rápido y sin errores.</p>
+          <button class="copy" data-copy="pitchTxt">Copiar pitch</button>
+        </article>
+
+        <article class="card" id="check">
+          <h2>✅ Checklist – Día 1 (se guarda en tu móvil)</h2>
+          <div class="list" id="todo">
+            <label class="check"><input type="checkbox" data-key="todo-repasar-propuesta">Repasar propuesta de valor en 1 frase</label>
+            <label class="check"><input type="checkbox" data-key="todo-crm">Acceso al CRM y vistas de pipeline</label>
+            <label class="check"><input type="checkbox" data-key="todo-casos">Pedir 2 casos de éxito locales</label>
+            <label class="check"><input type="checkbox" data-key="todo-pitch">Practicar pitch 60 segundos</label>
+            <label class="check"><input type="checkbox" data-key="todo-icp">Lista de 30 cuentas ICP prioritarias</label>
+            <label class="check"><input type="checkbox" data-key="todo-guiones">Guiones para cold call & email</label>
+          </div>
+        </article>
+      </section>
+
+      <footer class="foot">Hecho para tu primer día — guarda como app (PWA) con “Añadir a pantalla de inicio”.</footer>
+    </main>
   </div>
 
-<script>
-/* =========================
-   Datos por sectores
-   ========================= */
-const DATA = [
-  {
-    id:"moda", nombre:"Moda & Accesorios (DTC)",
-    dolores:["Picos de demanda (rebajas, BF, drops)","Alta tasa de devoluciones (tallas/fit)","Necesidad de personalización (packs, regalos)"],
-    beneficios:["Escalado inmediato sin ampliar almacén propio","Gestión ágil de devoluciones y RMA","Kitting y packaging personalizado"],
-    ejemplos:[
-      {marca:"Blue Banana",pais:"ES",nota:"DTC con picos por campañas"},
-      {marca:"Pompeii",pais:"ES",nota:"Colecciones y devoluciones"},
-      {marca:"Scalpers",pais:"ES",nota:"Retail + eCommerce"}
-    ],
-    kpis:{ ahorroPct:28, leadH:36, errorPct:0.5 },
-    objeciones:[
-      {t:"“Tenemos logística propia”",r:"Mantenéis control comercial y producto; externalizar picking/packing y transporte os quita picos y costes variables. Empezamos por una categoría/pico y comparamos KPIs."},
-      {t:"“Nos preocupa la experiencia de marca”",r:"Personalizamos packaging, inserts y bundles. Podemos replicar vuestro unboxing y mantener SLAs de entrega 24–48h."},
-      {t:"“Devoluciones son un lío”",r:"RMA integrado: gestión y reacondicionado básico; visibilidad para CX y reposición de stock utilizable."}
-    ],
-    guion:{sector:"Moda", canal:"Shopify/marketplaces"}
-  },
-  {
-    id:"electronica", nombre:"Electrónica & Tech",
-    dolores:["Multireferencia y rotación alta","SLA exigentes (24–48h)","Devoluciones de alto valor"],
-    beneficios:["Reducción de errores (≤0.5%)","Integración marketplaces tech","Trazabilidad de stock/lotes"],
-    ejemplos:[
-      {marca:"PcComponentes",pais:"ES",nota:"Catálogo amplio"},
-      {marca:"Coolmod",pais:"ES",nota:"Alto mix de SKUs"},
-      {marca:"LDLC",pais:"FR",nota:"Expansión UE"}
-    ],
-    kpis:{ ahorroPct:20, leadH:30, errorPct:0.4 },
-    objeciones:[
-      {t:"“Necesitamos precisión absoluta”",r:"Procesos QA + escaneo por bulto/línea; auditorías y reportes de error diarios; meta ≤0.5% y acciones correctivas."},
-      {t:"“Los RMA nos consumen”",r:"Flujos separados para diagnóstico/valoración; re-etiquetado y reportes para backoffice de garantía."},
-      {t:"“Integraciones complejas”",r:"Conectores listos (Shopify/Amazon, etc.) y API; pruebas en sandbox sin afectar la operativa actual."}
-    ],
-    guion:{sector:"Electrónica", canal:"Shopify/Amazon/propia"}
-  },
-  {
-    id:"belleza", nombre:"Belleza & Cosmética",
-    dolores:["Kits y suscripciones","Packaging de marca","Control de caducidad (FEFO)"],
-    beneficios:["Preparación de suscripciones","Unboxing premium","Lotes FEFO y compliance"],
-    ejemplos:[
-      {marca:"Freshly Cosmetics",pais:"ES",nota:"DTC, kits recurrentes"},
-      {marca:"Cocunat",pais:"ES",nota:"Unboxing cuidado"},
-      {marca:"Sephora (EU)",pais:"UE",nota:"Volumen y variedad"}
-    ],
-    kpis:{ ahorroPct:24, leadH:40, errorPct:0.4 },
-    objeciones:[
-      {t:"“¿Y los caducados?”",r:"FEFO automatizado y alertas; informes de rotación/mermas para compra y marketing."},
-      {t:"“Los kits cambian mucho”",r:"Kitting flexible; plantillas de BOM por campaña y pre-packs para acelerar picos."},
-      {t:"“Cuidado con el packaging”",r:"SLA y QA para conservar estética; embalaje secundario adaptado al transporte."}
-    ],
-    guion:{sector:"Belleza", canal:"Shopify/marketplaces"}
-  },
-  {
-    id:"deporte", nombre:"Deporte & Outdoor",
-    dolores:["Estacionalidad marcada","Artículos voluminosos","Envíos internacionales"],
-    beneficios:["Escala de capacidad sin CAPEX","Manipulación de volumen/fragilidad","Red UE para expansión"],
-    ejemplos:[
-      {marca:"Deporvillage",pais:"ES",nota:"Picos estacionales"},
-      {marca:"Tradeinn",pais:"ES",nota:"Internacionalización"},
-      {marca:"Decathlon (digital)",pais:"UE",nota:"Volumen multipaís"}
-    ],
-    kpis:{ ahorroPct:22, leadH:42, errorPct:0.6 },
-    objeciones:[
-      {t:"“El coste de voluminosos es alto”",r:"Optimización de embalaje, rutas y acuerdos con carriers; simulamos costes por SKU/volumen."},
-      {t:"“Picos imprevisibles”",r:"Slots y buffers dedicados; previsiones por campaña, ramp-up en horas."},
-      {t:"“Daños en transporte”",r:"Refuerzo, etiquetado y fotos de control; trazabilidad de incidencias para reclamaciones."}
-    ],
-    guion:{sector:"Deporte", canal:"Propia/marketplaces"}
-  },
-  {
-    id:"hogar", nombre:"Hogar & Decoración",
-    dolores:["SKUs voluminosos/frágiles","Última milla cara","Exportación UE"],
-    beneficios:["Almacenaje y embalaje reforzado","Optimización de transporte","Visibilidad daños/devoluciones"],
-    ejemplos:[
-      {marca:"Kave Home",pais:"ES",nota:"Volumen/export UE"},
-      {marca:"Banak",pais:"ES",nota:"Mueble y fragilidad"},
-      {marca:"Made.com",pais:"UE",nota:"Volumetría/diseño"}
-    ],
-    kpis:{ ahorroPct:18, leadH:60, errorPct:0.7 },
-    objeciones:[
-      {t:"“Nuestros muebles se dañan”",r:"Materiales específicos, flejado y cantoneado; KPI de daño y mejora continua con fotos y causas."},
-      {t:"“Coste de última milla”",r:"Consolidación, franjas y acuerdos por volumetría; evaluamos 2H/White glove si aplica."},
-      {t:"“Gestión de devoluciones”",r:"Inspección, reacondicionado básico y rutas de retorno; decisión rápida de reposición/venta outlet."}
-    ],
-    guion:{sector:"Hogar", canal:"Propia/marketplaces"}
-  },
-  {
-    id:"food", nombre:"Alimentación no perecedera / Healthy",
-    dolores:["Lotes y fechas de consumo","Regulación/etiquetado UE","Suscripciones DTC"],
-    beneficios:["FEFO y trazabilidad","Compliance almacén","Escala para recurrentes"],
-    ejemplos:[
-      {marca:"Heura",pais:"ES",nota:"Expansión DTC/retail"},
-      {marca:"DietBox",pais:"ES",nota:"Suscripciones mensuales"},
-      {marca:"MyProtein",pais:"UK/UE",nota:"Volumen pan-UE"}
-    ],
-    kpis:{ ahorroPct:21, leadH:44, errorPct:0.5 },
-    objeciones:[
-      {t:"“Cumplimiento y auditorías”",r:"Registros de temperatura si aplica, FEFO y trazabilidad por lote; informes para auditorías."},
-      {t:"“Suscripciones variables”",r:"Ventanas de corte, pre-picks y slots dedicados; previsión por cohortes."},
-      {t:"“Roturas de stock”",r:"Alertas y reportes de reposición; visibilidad en tiempo real para compras."}
-    ],
-    guion:{sector:"Alimentación", canal:"Shopify/propia"}
-  },
-];
-
-/* =========================
-   DOM refs
-   ========================= */
-const $sector   = document.getElementById('sectorSelect');
-const $example  = document.getElementById('exampleSelect');
-const $grid     = document.getElementById('cardsGrid');
-const $reset    = document.getElementById('resetBtn');
-const $g_sector = document.getElementById('g_sector');
-const $g_canal  = document.getElementById('g_canal');
-const $accordion= document.getElementById('accordion');
-const $kpiChart = document.getElementById('kpiChart');
-
-/* =========================
-   Helpers de UI
-   ========================= */
-function fillSectorSelect(){
-  $sector.innerHTML = '';
-  DATA.forEach(s=>{
-    const opt = document.createElement('option');
-    opt.value = s.id; opt.textContent = s.nombre;
-    $sector.appendChild(opt);
-  });
-}
-function fillExampleSelect(s){
-  $example.innerHTML = '';
-  const optAll = document.createElement('option');
-  optAll.value = 'all'; optAll.textContent = 'Todos los ejemplos';
-  $example.appendChild(optAll);
-  s.ejemplos.forEach(e=>{
-    const opt = document.createElement('option');
-    opt.value = e.marca; opt.textContent = e.marca;
-    $example.appendChild(opt);
-  });
-}
-fillSectorSelect();
-
-/* Tarjetas */
-function cardHTML(title, items){
-  return `
-    <div class="card rise">
-      <h3>${title}</h3>
-      <ul class="list">
-        ${items.map(x=>`<li>${x}</li>`).join('')}
-      </ul>
-    </div>
-  `;
-}
-function examplesHTML(ex){
-  return `
-    <div class="card rise">
-      <h3>Ejemplos reales (${ex.length})</h3>
-      <ul class="list">
-        ${ex.map(e=>`<li><b>${e.marca}</b> <span class="muted">(${e.pais})</span> — ${e.nota}</li>`).join('')}
-      </ul>
-      <p class="muted" style="margin-top:8px">Uso interno para discurso comercial. Verifica logos/casos antes de publicarlos.</p>
-    </div>
-  `;
-}
-
-/* Acordeón de objeciones */
-function accordionHTML(items){
-  return items.map((o,i)=>`
-    <div class="acc-item" data-idx="${i}">
-      <div class="acc-head">
-        <h4>${o.t}</h4>
-        <svg class="acc-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 5v14l11-7-11-7z"/></svg>
-      </div>
-      <div class="acc-body"><div class="muted">${o.r}</div></div>
-    </div>
-  `).join('');
-}
-function bindAccordion(){
-  document.querySelectorAll('.acc-item').forEach(el=>{
-    const head = el.querySelector('.acc-head');
-    const body = el.querySelector('.acc-body');
-    head.addEventListener('click', ()=>{
-      const open = el.classList.toggle('open');
-      body.style.maxHeight = open ? (body.scrollHeight + 24) + 'px' : '0px';
-      if(open) body.classList.add('open'); else body.classList.remove('open');
+  <script>
+    // =================== THEME ===================
+    const themeBtn = document.getElementById('themeBtn');
+    const statusBadge = document.getElementById('statusBadge');
+    function applyTheme(mode){
+      if(mode==='light'){ document.body.classList.add('light'); statusBadge.textContent='Modo claro'; themeBtn.textContent='🌞'}
+      else { document.body.classList.remove('light'); statusBadge.textContent='Modo oscuro'; themeBtn.textContent='🌙'}
+      localStorage.setItem('theme', mode);
+    }
+    applyTheme(localStorage.getItem('theme')||'dark');
+    themeBtn.addEventListener('click',()=>{
+      const next = document.body.classList.contains('light')?'dark':'light';
+      applyTheme(next);
     });
-  });
-}
 
-/* Chart SVG (barras) */
-function renderChart(kpis){
-  // Limpia
-  while($kpiChart.firstChild) $kpiChart.removeChild($kpiChart.firstChild);
+    // =================== NAV / HAMBURGER ===================
+    const sidebar = document.getElementById('sidebar');
+    const hamburger = document.getElementById('hamburger');
+    if(hamburger){ hamburger.addEventListener('click',()=> sidebar.classList.toggle('open')); }
+    document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=> sidebar.classList.remove('open')));
 
-  const W=520, H=220, pad=36, axisY=H-40, barW=40, gap=70;
-  const groups = [
-    {label:'Ahorro %', val:kpis.ahorroPct, color:'var(--accent)', max:40, fmt:v=>v+'%'},
-    {label:'Lead time (h)', val:kpis.leadH, color:'var(--brand)', max:72, fmt:v=>v+'h'},
-    {label:'Error picking %', val:kpis.errorPct, color:'var(--ok)', max:1.2, fmt:v=>v+'%'}
-  ];
-  // Ejes
-  const axis = document.createElementNS('http://www.w3.org/2000/svg','path');
-  axis.setAttribute('d', `M ${pad} ${axisY} H ${W-pad}`);
-  axis.setAttribute('stroke','currentColor'); axis.setAttribute('opacity','0.3');
-  $kpiChart.appendChild(axis);
+    // =================== ROI CALCULATOR ===================
+    const calcBtn = document.getElementById('calc');
+    if(calcBtn){
+      calcBtn.addEventListener('click',()=>{
+        const orders = parseFloat(document.getElementById('orders').value||0);
+        const save = parseFloat(document.getElementById('save').value||0);
+        const monthly = orders * save;
+        const yearly = monthly * 12;
+        const roiEl = document.getElementById('roi');
+        roiEl.textContent = `Ahorro estimado: €${monthly.toLocaleString()} / mes · €${yearly.toLocaleString()} / año`;
+      });
+    }
 
-  groups.forEach((g,i)=>{
-    const x = pad + 30 + i*(barW+gap);
-    const maxH = axisY - pad;
-    const h = Math.max(4, (g.val/g.max) * maxH);
-    const y = axisY - h;
+    // =================== FLOW TOGGLES ===================
+    document.querySelectorAll('.step header button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const content = btn.parentElement.nextElementSibling;
+        const isOpen = content.style.display==='block';
+        content.style.display = isOpen?'none':'block';
+        btn.textContent = isOpen?'▼':'▲';
+      })
+    })
 
-    // Barra
-    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rect.setAttribute('x', x); rect.setAttribute('y', y);
-    rect.setAttribute('width', barW); rect.setAttribute('height', h);
-    rect.setAttribute('fill', g.color);
-    rect.setAttribute('rx','6');
-    rect.style.transition='all .35s ease';
-    $kpiChart.appendChild(rect);
+    // =================== COPY BUTTONS ===================
+    function copyFrom(id){
+      const txt = document.getElementById(id).innerText.trim();
+      navigator.clipboard.writeText(txt).then(()=>{
+        const b = document.querySelector(`[data-copy="${id}"]`);
+        if(b){ const prev=b.textContent; b.textContent='Copiado ✅'; setTimeout(()=>b.textContent=prev,1200); }
+      })
+    }
+    document.querySelectorAll('.copy').forEach(b=> b.addEventListener('click',()=> copyFrom(b.dataset.copy)));
 
-    // Valor
-    const val = document.createElementNS('http://www.w3.org/2000/svg','text');
-    val.setAttribute('x', x+barW/2); val.setAttribute('y', y-6);
-    val.setAttribute('text-anchor','middle'); val.setAttribute('font-size','12');
-    val.textContent = g.fmt(g.val);
-    $kpiChart.appendChild(val);
+    // =================== SEARCH FILTER ===================
+    const q = document.getElementById('search');
+    const clearSearch = document.getElementById('clearSearch');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    function filter(){
+      const term = (q.value||'').toLowerCase();
+      cards.forEach(c=>{
+        const hit = c.innerText.toLowerCase().includes(term);
+        c.style.display = hit? 'block':'none';
+      })
+    }
+    if(q){ q.addEventListener('input', filter); }
+    if(clearSearch){ clearSearch.addEventListener('click', ()=>{ q.value=''; filter(); q.focus();}); }
 
-    // Label
-    const lbl = document.createElementNS('http://www.w3.org/2000/svg','text');
-    lbl.setAttribute('x', x+barW/2); lbl.setAttribute('y', axisY+16);
-    lbl.setAttribute('text-anchor','middle'); lbl.setAttribute('font-size','12'); lbl.setAttribute('fill','var(--muted)');
-    lbl.textContent = g.label;
-    $kpiChart.appendChild(lbl);
-  });
-}
+    // =================== CHECKLIST PERSISTENCE ===================
+    document.querySelectorAll('#todo input[type="checkbox"]').forEach(cb=>{
+      const k = cb.dataset.key;
+      const saved = localStorage.getItem(k);
+      if(saved==='1') cb.checked = true;
+      cb.addEventListener('change',()=> localStorage.setItem(k, cb.checked?'1':'0'));
+    })
 
-/* Render principal */
-function render(sectorId, exampleFilter='all'){
-  const s = DATA.find(x=>x.id===sectorId) || DATA[0];
-  $g_sector.textContent = s.guion.sector;
-  $g_canal.textContent  = s.guion.canal;
+    // =================== PWA INSTALL ===================
+    let deferredPrompt; const installBtn = document.getElementById('installBtn');
+    window.addEventListener('beforeinstallprompt', (e)=>{ e.preventDefault(); deferredPrompt = e; installBtn.hidden=false;});
+    if(installBtn){ installBtn.addEventListener('click', async ()=>{ if(!deferredPrompt) return; deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt=null; installBtn.hidden=true; }); }
 
-  // Selector de ejemplos
-  fillExampleSelect(s);
+    // =================== ACTIVE NAV HIGHLIGHT ===================
+    const sections = cards.map(c=> c.id);
+    function onScroll(){
+      const pos = window.scrollY + 120;
+      let current = sections[0];
+      sections.forEach(id=>{
+        const el = document.getElementById(id);
+        if(el && el.offsetTop <= pos) current = id;
+      });
+      document.querySelectorAll('#navlinks a').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href')==="#"+current);
+      })
+    };
+    document.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
 
-  let examples = s.ejemplos;
-  if(exampleFilter!=='all'){
-    examples = s.ejemplos.filter(e => e.marca === exampleFilter);
-  }
+    // =================== GLOSSARY (TERMS) ===================
+    const TERMS = {
+      "NPS": {t:"Net Promoter Score", d:"Índice de lealtad (−100 a +100) basado en encuestas 0–10. Fórmula: %Promotores (9–10) − %Detractores (0–6).", h:"Mejor NPS ⇒ más repetición y referidos; baja el coste de adquisición en el tiempo.", e:"Subir NPS de 45 a 55 puede elevar reviews y repetición, impactando ingresos.", s:"Como la afición de un club: si la mayoría anima (promotores) y pocos pitan (detractores), el ambiente impulsa al equipo (ventas)."},
+      "CSAT": {t:"Customer Satisfaction Score", d:"Satisfacción media en una interacción (p.ej., post‑entrega).", h:"Sirve para controlar la calidad del servicio en puntos específicos del journey.", e:"CSAT de 4,6/5 en devoluciones reduce tickets repetidos.", s:"Puntuación del árbitro en una jugada concreta: mide ese momento, no todo el partido."},
+      "SLA": {t:"Service Level Agreement", d:"Compromisos de servicio (tiempos, exactitud, nivel de servicio).", h:"Convertimos promesas en métricas: ingreso de stock, preparación, corte diario y entrega.", e:"SLA de ingreso: stock disponible en < 24h desde recepción.", s:"Reglas del partido: tiempos y objetivos acordados; si no se cumplen, hay falta/penalización."},
+      "3PL": {t:"Third‑Party Logistics", d:"Proveedor externo que gestiona almacenaje, preparación y envío.", h:"Externalizas la complejidad logística y pagas por pedido/volumen.", e:"Migrar a 3PL reduce CAPEX y acelera expansión a nuevos países.", s:"Como contratar un staff externo para entrenamientos y viajes del club, mientras el equipo se centra en jugar (vender)."},
+      "4PL": {t:"Fourth‑Party Logistics", d:"Orquestador que diseña y gestiona la cadena coordinando varios 3PL/carriers.", h:"Una ‘capa de control’ para redes complejas multi‑país.", e:"Marca global usa 4PL para consolidar datos y negociar tarifas.", s:"El director deportivo que coordina entrenadores, cantera y logística a nivel club."},
+      "SKU": {t:"Stock Keeping Unit", d:"Identificador único por variante de producto.", h:"Clave para exactitud de inventario y análisis por rotación.", e:"100 SKUs y 3.000 pedidos/mes ⇒ complejidad media.", s:"El dorsal único de cada jugador/variante."},
+      "WMS": {t:"Warehouse Management System", d:"Software de operaciones de almacén.", h:"Control en tiempo real y menos errores de preparación.", e:"WMS con radiofrecuencia mejora exactitud de picking.", s:"El tablero táctico del entrenador: quién se mueve, dónde está cada pieza."},
+      "OMS": {t:"Order Management System", d:"Sistema que centraliza y enruta pedidos entre canales.", h:"Unifica Shopify, Amazon y otros en un solo flujo.", e:"OMS prioriza mismo‑día si el pedido entra antes del cut‑off.", s:"El entrenador que decide la próxima jugada y a qué banda va el balón (canal)."},
+      "RMA": {t:"Return Merchandise Authorization", d:"Proceso autorizado de devolución.", h:"Devoluciones fluidas mejoran NPS y recuperan margen.", e:"Portal RMA reduce contactos a soporte 30%.", s:"Saque lateral bien gestionado: el balón sale, vuelve con protocolo claro y el juego sigue."},
+      "OOS": {t:"Out‑of‑Stock", d:"Ruptura de stock.", h:"Plan de reabastecimiento por rotación/lead time.", e:"OOS en top‑seller afecta AOV y ranking.", s:"Jugar sin tu delantero titular: baja rendimiento y resultados."},
+      "D2C": {t:"Direct‑to‑Consumer", d:"Venta directa de la marca al consumidor.", h:"Más control de datos, márgenes y experiencia.", e:"Necesita devoluciones simples y envíos D+1.", s:"Venta de entradas directamente del club al aficionado, sin intermediarios."},
+      "MOQ": {t:"Minimum Order Quantity", d:"Cantidad mínima por proveedor.", h:"Impacta cash‑flow y almacenamiento.", e:"Reducir MOQ libera capital.", s:"Número mínimo de camisetas que debes pedir para el equipo."},
+      "AOV": {t:"Average Order Value", d:"Valor medio de pedido.", h:"Mejora con bundles y envíos rápidos.", e:"AOV sube con packs y D+1.", s:"Promedio de goles por partido: subirlo mejora resultados."},
+      "ASP": {t:"Average Selling Price", d:"Precio medio de venta.", h:"Útil para mix y márgenes.", e:"ASP alto exige mejor packaging y transporte.", s:"Precio medio de las entradas vendidas en la temporada."},
+      "GMV": {t:"Gross Merchandise Value", d:"Valor bruto transaccionado.", h:"Indica tamaño de operación.", e:"GMV €1M/mes ⇒ 3PL escalable.", s:"Total de puntos anotados por todos los equipos del torneo: volumen bruto."},
+      "CLTV": {t:"Customer Lifetime Value", d:"Ingresos netos esperados por cliente.", h:"Mejora con logística fiable.", e:"Mejor logística ⇒ mayor CLTV.", s:"Abono de temporada: cuanto más contento el fan, más años renueva."},
+      "LTV": {t:"Lifetime Value", d:"Sinónimo de CLTV.", h:"—", e:"—", s:"—"},
+      "CAC": {t:"Customer Acquisition Cost", d:"Coste de captar un cliente.", h:"NPS alto reduce CAC efectivo.", e:"Más referidos ⇒ menos ads.", s:"Coste de captar nuevos abonados: si los fans recomiendan, gastas menos en publicidad."},
+      "Lead time": {t:"Tiempo de ciclo", d:"Tiempo desde pedido hasta disponibilidad/entrega.", h:"Reducirlo sube conversión.", e:"Ingreso stock <24h + cut‑off 16:00 ⇒ D+1.", s:"Tiempo desde que se arma la jugada hasta que se marca el gol."},
+      "Cut‑off": {t:"Hora de corte", d:"Última hora para procesar hoy.", h:"Define D0/D+1.", e:"Cut‑off 16:00 ⇒ pedidos 15:59 salen hoy.", s:"Hora límite para inscribir jugadores antes del partido."},
+      "Carrier": {t:"Transportista", d:"Empresa de paquetería.", h:"Optimiza por destino y SLA.", e:"Multi‑carrier para resiliencia.", s:"Autobús oficial y compañías de viaje del equipo."},
+      "Reverse logistics": {t:"Logística inversa", d:"Flujo de devoluciones y reparaciones.", h:"Impacta NPS y coste.", e:"Clasificación y reacondicionado reducen pérdidas.", s:"Cuando el balón vuelve al campo: hay que reubicarlo y reanudar el juego sin fricción."}
+    };
 
-  $grid.innerHTML = `
-    ${cardHTML('Dolores típicos', s.dolores)}
-    ${cardHTML('Beneficios Huboo', s.beneficios)}
-    ${examplesHTML(examples)}
-  `;
+    // ===== Build glossary list =====
+    function buildGlossary(){
+      const list = document.getElementById('glossaryList');
+      if(!list) return;
+      const keys = Object.keys(TERMS).sort((a,b)=> a.localeCompare(b));
+      list.innerHTML = '';
+      keys.forEach(k=>{
+        const t = TERMS[k];
+        const div = document.createElement('div');
+        div.className = 'gitem';
+        div.innerHTML = `<div class="gtitle"><button class="def" data-key="${k}">${k}</button> — ${t.t}</div>
+                         <div class="gdesc sub">${t.d}</div>`;
+        list.appendChild(div);
+      });
+    }
 
-  // Objeciones
-  $accordion.innerHTML = accordionHTML(s.objeciones);
-  bindAccordion();
+    // ===== Chips in topbar =====
+    const termChips = document.getElementById('termChips');
+    function buildChips(){
+      if(!termChips) return;
+      termChips.innerHTML = '';
+      Object.keys(TERMS).sort().forEach(k=>{
+        const b = document.createElement('button');
+        b.className='chip'; b.textContent=k; b.dataset.key=k;
+        b.addEventListener('click', ()=> openTerm(k));
+        termChips.appendChild(b);
+      })
+    }
 
-  // Chart
-  renderChart(s.kpis);
-}
-render(DATA[0].id);
+    // ===== Wrap terms in content (safe) =====
+    function unwrapDefs(){
+      document.querySelectorAll('.def').forEach(el=>{
+        const text = document.createTextNode(el.textContent);
+        el.replaceWith(text);
+      });
+    }
+    function escapeRegex(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'); }
+    function wrapTerms(){
+      const container = document.getElementById('content');
+      if(!container) return;
+      unwrapDefs(); // avoid nesting
+      const keys = Object.keys(TERMS).sort((a,b)=> b.length - a.length);
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, {
+        acceptNode: (n)=>{
+          if(!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          const p = n.parentElement;
+          if(!p) return NodeFilter.FILTER_REJECT;
+          if(['SCRIPT','STYLE','BUTTON','INPUT','TEXTAREA'].includes(p.tagName)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+      const nodes = [];
+      while(walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node=>{
+        let html = node.nodeValue;
+        let changed = false;
+        keys.forEach(k=>{
+          const re = new RegExp(`\\b${escapeRegex(k)}\\b`,'g');
+          html = html.replace(re, (m)=>{ changed=true; return `<button class="def" data-key="${k}">${m}</button>`; });
+        });
+        if(changed){
+          const span = document.createElement('span');
+          span.innerHTML = html;
+          node.parentNode.replaceChild(span, node);
+        }
+      });
+    }
 
-/* Eventos */
-$sector.addEventListener('change', e=> render(e.target.value, 'all'));
-$example.addEventListener('change', e=> render($sector.value, e.target.value));
-$reset.addEventListener('click', ()=>{
-  $sector.selectedIndex = 0;
-  render(DATA[0].id, 'all');
-});
+    // ===== Popover =====
+    const overlayEl = document.createElement('div'); overlayEl.id='overlay'; overlayEl.className='overlay hidden';
+    const popEl = document.createElement('aside'); popEl.id='pop'; popEl.className='pop hidden'; popEl.setAttribute('role','dialog'); popEl.setAttribute('aria-modal','true');
+    popEl.innerHTML = `
+      <div class="h"><strong id="popTitle"></strong><button class="btn" id="popClose" aria-label="Cerrar">✕</button></div>
+      <div class="b" id="popBody"></div>
+      <div class="b" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btnlink" id="copyExpl">Copiar explicación</button>
+        <a class="btnlink" href="#glosario" id="openGlossary">Ver en glosario</a>
+      </div>
+    `;
+    document.body.appendChild(overlayEl); document.body.appendChild(popEl);
 
-/* Calculadora */
-function calc(){
-  const orders = +document.getElementById('c_orders').value||0;
-  const cppNow = +document.getElementById('c_cpp_now').value||0;
-  const saving = +document.getElementById('c_saving').value||0;
-  const ahorroUnit = cppNow * (saving/100);
-  const ahorroMensual = Math.max(0, ahorroUnit*orders);
-  document.getElementById('c_result').textContent = `€ ${ahorroMensual.toLocaleString('es-ES',{maximumFractionDigits:0})} / mes`;
-}
-document.getElementById('calcBtn').addEventListener('click', calc);
-calc();
+    function openTerm(key){
+      const t = TERMS[key]; if(!t) return;
+      document.getElementById('popTitle').textContent = `${key} · ${t.t}`;
+      document.getElementById('popBody').innerHTML = `
+        <div><strong>Definición:</strong> ${t.d}</div>
+        <div style="margin-top:6px"><strong>Cómo explicarlo al cliente:</strong> ${t.h}</div>
+        ${t.e? `<div style="margin-top:6px"><strong>Ejemplo:</strong> ${t.e}</div>`:''}
+        ${t.s? `<div style="margin-top:6px"><strong>Analogía deportiva:</strong> ${t.s}</div>`:''}
+      `;
+      overlayEl.classList.remove('hidden'); popEl.classList.remove('hidden');
+    }
+    function closePop(){ overlayEl.classList.add('hidden'); popEl.classList.add('hidden'); }
 
-/* Tema: sol/luna */
-const THEME_KEY='huboo_theme';
-const $themeBtn=document.getElementById('themeBtn');
-const $iconSun=document.getElementById('iconSun');
-const $iconMoon=document.getElementById('iconMoon');
-const $themeLabel=document.getElementById('themeLabel');
+    document.addEventListener('click',(e)=>{
+      const btn = e.target.closest('.def');
+      if(btn && btn.dataset.key){ openTerm(btn.dataset.key); }
+    });
+    overlayEl.addEventListener('click', closePop);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closePop(); });
+    document.addEventListener('click',(e)=>{ if(e.target && e.target.id==='popClose') closePop(); });
+    document.addEventListener('click',(e)=>{
+      if(e.target && e.target.id==='copyExpl'){
+        const txt = document.getElementById('popBody').innerText.trim();
+        navigator.clipboard.writeText(txt);
+        e.target.textContent='¡Copiado!'; setTimeout(()=> e.target.textContent='Copiar explicación', 1200);
+      }
+    });
 
-function setTheme(mode){
-  document.documentElement.setAttribute('data-theme', mode);
-  localStorage.setItem(THEME_KEY, mode);
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const effective=(mode==='auto')?(prefersDark?'dark':'light'):mode;
-  const isLight = effective==='light';
-  $iconSun.style.display = isLight ? 'none' : '';
-  $iconMoon.style.display= isLight ? '' : 'none';
-  $themeLabel.textContent = mode.charAt(0).toUpperCase()+mode.slice(1);
-}
-function cycleTheme(){
-  const cur = localStorage.getItem(THEME_KEY) || 'auto';
-  const next = (cur==='auto') ? 'light' : (cur==='light' ? 'dark' : 'auto');
-  setTheme(next);
-}
-(function initTheme(){ setTheme(localStorage.getItem(THEME_KEY)||'auto'); })();
-$themeBtn.addEventListener('click', cycleTheme);
+    // ===== Glossary page controls =====
+    function buildGlossaryAndChips(){ buildGlossary(); buildChips(); wrapTerms(); }
+    buildGlossaryAndChips();
 
-/* Menú hamburguesa */
-const $hamburger=document.getElementById('hamburger');
-const $controls=document.getElementById('controls');
-$hamburger.addEventListener('click', ()=>{
-  const open=$controls.classList.toggle('open');
-  $hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-});
-</script>
+    const glossBtn = document.getElementById('glossBtn');
+    if(glossBtn){ glossBtn.addEventListener('click', ()=>{ location.hash = '#glosario'; }); }
+
+    const gSearch = document.getElementById('glossarySearch');
+    const gClear = document.getElementById('glossaryClear');
+    function filterGlossary(){
+      const term = (gSearch.value||'').toLowerCase();
+      document.querySelectorAll('#glossaryList .gitem').forEach(item=>{
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(term)?'block':'none';
+      });
+    }
+    if(gSearch){ gSearch.addEventListener('input', filterGlossary); }
+    if(gSearch){ gSearch.addEventListener('keydown', (e)=>{
+      if(e.key==='Enter'){
+        const first = Array.from(document.querySelectorAll('#glossaryList .gitem')).find(x=> x.style.display!== 'none');
+        if(first){ const key = first.querySelector('.def')?.dataset.key; if(key) openTerm(key); }
+      }
+    });}
+    if(gClear){ gClear.addEventListener('click', ()=>{ gSearch.value=''; filterGlossary(); gSearch.focus(); }); }
+  </script>
 </body>
 </html>
